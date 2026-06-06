@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Result Processing</title>
+</head>
+<body>
+
+<h2>Student Result Processing System</h2>
+
+<button onclick="loadStudents()">Load Results</button>
+
+<div id="results"></div>
+
+<script>
+
+  // Student class
+  class Student {
+    constructor(name, sem1Marks, sem2Marks) {
+      this.name = name;
+
+      // Spread operator to merge marks
+      this.marks = [...sem1Marks, ...sem2Marks];
+    }
+
+    // Arrow function to calculate total
+    getTotal = () => {
+      return this.marks.reduce((sum, m) => sum + m, 0);
+    }
+
+    // Arrow function to calculate average
+    getAverage = () => {
+      return (this.getTotal() / this.marks.length).toFixed(2);
+    }
+  }
+
+  // Create student records
+  const student1 = new Student("Rahul", [80, 75, 90], [85, 70, 95]);
+  const student2 = new Student("Anjali", [70, 65, 80], [75, 60, 85]);
+  const student3 = new Student("Kiran", [90, 88, 92], [85, 87, 91]);
+
+  const loadStudents = () => {
+
+    const allStudents = [student1, student2, student3];
+
+    let output = "";
+
+    // Destructuring inside loop
+    allStudents.forEach(({ name, marks, getTotal, getAverage }) => {
+      output += `<p>
+                  Name: ${name}, 
+                  Marks: ${marks.join(", ")}, 
+                  Total: ${getTotal()}, 
+                  Average: ${getAverage()}
+                </p>`;
+    });
+
+    document.getElementById("results").innerHTML = output;
+  };
+
+</script>
+
+</body>
+</html>

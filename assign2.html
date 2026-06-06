@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Library Book Management</title>
+</head>
+<body>
+
+<h2>Library Book Management</h2>
+
+<button onclick="loadBooks()">Load Books</button>
+
+<div id="books"></div>
+
+<script>
+
+  // Book class
+  class Book {
+    constructor(title, author, price, ...extraPrices) {
+      this.title = title;
+      this.author = author;
+      this.price = price;
+      this.extraPrices = extraPrices;
+    }
+
+    // Arrow function to calculate final price
+    getFinalPrice = () => {
+      const extraTotal = this.extraPrices.reduce((sum, p) => sum + p, 0);
+      return this.price + extraTotal;
+    }
+  }
+
+  // Create book objects
+  const book1 = new Book("The Alchemist", "Paulo Coelho", 300, -50, 20);
+  const book2 = new Book("Harry Potter", "J.K. Rowling", 500, -100, 30, 20);
+  const book3 = new Book("Wings of Fire", "A.P.J Abdul Kalam", 250, -30);
+
+  const loadBooks = () => {
+
+    const allBooks = [book1, book2, book3];
+
+    let output = "";
+
+    allBooks.forEach(({ title, author, price, getFinalPrice }) => {
+      output += `<p>
+                  Title: ${title}, 
+                  Author: ${author}, 
+                  Base Price: ${price}, 
+                  Final Price: ${getFinalPrice()}
+                </p>`;
+    });
+
+    document.getElementById("books").innerHTML = output;
+  };
+
+</script>
+
+</body>
+</html>
